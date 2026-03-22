@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Socialto — Leave Socials 2 Pros</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--bg:#09090B;--s0:#0E0E10;--s1:#131315;--s2:#1C1B1D;--s3:#2A2A2C;--s4:#353437;
+--tx:#EEEEF0;--t2:#A1A1AA;--t3:#71717A;
+--ac:#C2185B;--ac2:#E91E63;--or:#E65100;--or2:#FF6D00;
+--gn:#4EDEA3;--gn2:#2E7D32;--bl:#60A5FA;
+--g:linear-gradient(135deg,#C2185B,#E65100);
+--glass:rgba(20,20,22,.65);--ghost:rgba(255,255,255,.06);
+--r:8px;--r2:12px;--r3:16px;
+}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--tx);-webkit-font-smoothing:antialiased;height:100vh;overflow:hidden;display:flex}
+.mono{font-family:'JetBrains Mono',monospace}
+.ms{font-family:'Material Symbols Outlined';font-variation-settings:'FILL' 0,'wght' 300,'GRAD' 0,'opsz' 24}
+.mf{font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24}
+.vg{background:var(--g)}
+.gt{background:var(--g);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+
+/* Grid bg */
+.gridbg{background-image:radial-gradient(circle at 1px 1px,rgba(255,255,255,.025) 1px,transparent 0);background-size:40px 40px}
+.glow{background:radial-gradient(ellipse 60% 40% at 50% 0%,rgba(194,24,91,.12),rgba(230,81,0,.04) 50%,transparent)}
+
+/* Sidebar */
+.side{width:52px;background:var(--s0);border-right:1px solid var(--ghost);display:flex;flex-direction:column;align-items:center;padding:14px 0 14px;gap:2px;flex-shrink:0;z-index:50}
+.slogo{width:30px;height:30px;background:var(--g);border-radius:var(--r);display:grid;place-items:center;margin-bottom:12px;cursor:pointer;box-shadow:0 0 20px rgba(194,24,91,.25)}
+.slogo span{color:#fff;font-size:15px}
+.sn{width:36px;height:36px;border-radius:6px;display:grid;place-items:center;cursor:pointer;transition:.15s;color:var(--t3);border:none;background:none;position:relative}
+.sn:hover{background:rgba(255,255,255,.04);color:var(--t2)}
+.sn.on{background:rgba(194,24,91,.12);color:var(--ac)}
+.sn .ms{font-size:18px}
+.sn .tip{position:absolute;left:46px;background:var(--s3);color:var(--tx);padding:4px 10px;border-radius:6px;font-size:10px;font-weight:600;white-space:nowrap;opacity:0;pointer-events:none;transition:.15s;z-index:99}
+.sn:hover .tip{opacity:1}
+
+/* Main area */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.top{height:48px;background:rgba(14,14,16,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--ghost);display:flex;align-items:center;justify-content:space-between;padding:0 20px;flex-shrink:0;z-index:40}
+.brand{font-weight:800;font-size:16px;letter-spacing:-.03em}
+.tag{font-size:10px;color:var(--t3);margin-left:12px;letter-spacing:.02em}
+
+/* Pages */
+.pages{flex:1;position:relative;overflow:hidden}
+.pg{position:absolute;inset:0;overflow-y:auto;display:none;background:var(--bg)}
+.pg.on{display:block}
+.pg::-webkit-scrollbar{width:3px}.pg::-webkit-scrollbar-thumb{background:rgba(255,255,255,.08);border-radius:10px}
+
+/* Chat */
+.cht{max-width:720px;margin:0 auto;padding:40px 20px 140px}
+.hero{text-align:center;padding:72px 0 36px}
+.hero .badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid var(--ghost);font-size:10px;color:var(--ac);letter-spacing:.1em;text-transform:uppercase;font-weight:700;margin-bottom:24px}
+.hero h1{font-size:44px;font-weight:800;letter-spacing:-.04em;line-height:1.1;margin-bottom:14px}
+.hero p{font-size:14px;color:var(--t2);max-width:460px;margin:0 auto;line-height:1.7}
+.qk{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-top:24px}
+.qk button{padding:7px 14px;border-radius:999px;background:rgba(255,255,255,.03);border:1px solid var(--ghost);font-size:11px;font-weight:500;color:var(--t2);cursor:pointer;transition:.15s;font-family:inherit}
+.qk button:hover{border-color:rgba(194,24,91,.4);color:var(--ac);background:rgba(194,24,91,.08)}
+.cinp{position:fixed;bottom:0;left:52px;right:0;padding:14px 20px 22px;background:linear-gradient(transparent,var(--bg) 35%);z-index:20}
+.cbox{max-width:720px;margin:0 auto;background:var(--glass);backdrop-filter:blur(12px);border:1px solid var(--ghost);border-radius:var(--r2);padding:10px 14px;display:flex;align-items:center;gap:10px;transition:.2s}
+.cbox:focus-within{border-color:rgba(194,24,91,.4);box-shadow:0 0 30px rgba(194,24,91,.08)}
+.cbox input{flex:1;background:none;border:none;outline:none;font-size:13px;color:var(--tx);font-family:inherit}
+.cbox input::placeholder{color:var(--t3)}
+.cbtn{width:30px;height:30px;border-radius:50%;background:var(--g);border:none;display:grid;place-items:center;cursor:pointer;transition:.1s}
+.cbtn:hover{transform:scale(1.06)}.cbtn:active{transform:scale(.94)}
+
+/* Messages */
+.msg{display:flex;gap:10px;margin-bottom:20px;animation:fu .3s ease}
+.msg.u{justify-content:flex-end}
+.av{width:26px;height:26px;border-radius:50%;flex-shrink:0;display:grid;place-items:center}
+.av.ai{background:var(--g)}.av.ai .ms{font-size:12px;color:#fff}
+.av.us{background:var(--s3)}.av.us .ms{font-size:12px;color:var(--t2)}
+.bub{max-width:580px;font-size:13px;line-height:1.65}
+.msg.u .bub{background:rgba(255,255,255,.05);padding:9px 14px;border-radius:var(--r2) var(--r2) 3px var(--r2)}
+
+/* Cards */
+.gc{background:var(--glass);backdrop-filter:blur(12px);border:1px solid var(--ghost);border-radius:var(--r2);overflow:hidden}
+.gc:hover{border-color:rgba(255,255,255,.1)}
+.gc.glow-ac{box-shadow:0 0 0 1px rgba(194,24,91,.25),0 0 20px rgba(194,24,91,.06)}
+.row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:12px}
+.row:last-child{border:none}
+.row .lb{color:var(--t3)}.row .vl{font-weight:600}
+.btn{padding:7px 16px;border-radius:var(--r);font-size:11px;font-weight:700;cursor:pointer;border:none;font-family:inherit;transition:.15s}
+.btn-p{background:var(--g);color:#fff}.btn-p:hover{opacity:.9;box-shadow:0 0 20px rgba(194,24,91,.3)}
+.btn-s{background:rgba(255,255,255,.05);color:var(--t2);border:1px solid var(--ghost)}.btn-s:hover{background:rgba(255,255,255,.08);color:var(--tx)}
+.badge-pill{padding:3px 10px;border-radius:999px;font-size:9px;font-weight:700;letter-spacing:.03em}
+
+/* Format cards */
+.fmt{padding:16px;cursor:pointer;transition:.2s}
+.fmt:hover{background:rgba(255,255,255,.03);border-color:rgba(194,24,91,.3) !important}
+.fmt h3{font-size:15px;font-weight:800;margin-bottom:3px}
+.fmt .rate{font-size:11px;font-weight:700;margin-bottom:6px}
+.fmt .desc{font-size:11px;color:var(--t2);line-height:1.5;margin-bottom:8px}
+.fmt .plat{font-size:9px;color:var(--t3)}
+
+/* Phone sim */
+.phone{width:220px;height:440px;background:var(--s1);border-radius:24px;border:2px solid var(--s3);position:relative;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.phone .notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:80px;height:18px;background:var(--bg);border-radius:0 0 14px 14px;z-index:5}
+.phone .screen{position:absolute;inset:2px;border-radius:22px;overflow:hidden;background:var(--s0)}
+.phone .bar{position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:60px;height:3px;background:var(--s4);border-radius:99px;z-index:5}
+
+/* Stats */
+.stat{padding:16px}.stat .lb{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);font-weight:700;margin-bottom:5px}
+.stat .val{font-size:22px;font-weight:800;letter-spacing:-.03em}
+.stat .sub{font-size:10px;color:var(--t3);margin-top:3px}
+.pbar{height:3px;background:rgba(255,255,255,.05);border-radius:2px;margin-top:8px;overflow:hidden}
+.pbar div{height:100%;border-radius:2px}
+
+/* Terminal */
+.term{background:#000;border-radius:var(--r2);overflow:hidden;border:1px solid var(--ghost)}
+.term .th{padding:8px 12px;background:var(--s2);display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--ghost)}
+.term .dot{width:8px;height:8px;border-radius:50%}
+.term code{display:block;padding:14px 16px;font-size:11px;line-height:1.9;color:var(--t2)}
+.term .hi{color:var(--ac)}.term .gn{color:var(--gn)}.term .or{color:var(--or2)}
+
+@keyframes fu{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:.5}50%{opacity:1}}
+@keyframes typ{0%{opacity:.2}50%{opacity:1}100%{opacity:.2}}
+.typi span{animation:typ 1.4s infinite;color:var(--t3);font-size:16px;letter-spacing:3px}
+.typi span:nth-child(2){animation-delay:.2s}.typi span:nth-child(3){animation-delay:.4s}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav class="side">
+<div class="slogo" onclick="go('chat')"><span class="ms mf" style="font-size:14px">all_inclusive</span></div>
+<button class="sn on" onclick="go('chat')"><span class="ms">chat</span><span class="tip">AI Chat</span></button>
+<button class="sn" onclick="go('dash')"><span class="ms">dashboard</span><span class="tip">Dashboard</span></button>
+<button class="sn" onclick="go('formats')"><span class="ms">style</span><span class="tip">Formats</span></button>
+<button class="sn" onclick="go('bundle')"><span class="ms">inventory_2</span><span class="tip">Bundle</span></button>
+<button class="sn" onclick="go('ads')"><span class="ms">ads_click</span><span class="tip">Ads</span></button>
+<button class="sn" onclick="go('cal')"><span class="ms">calendar_month</span><span class="tip">Calendar</span></button>
+<button class="sn" onclick="go('pricing')"><span class="ms">payments</span><span class="tip">Pricing</span></button>
+<div style="margin-top:auto"><button class="sn"><span class="ms">settings</span><span class="tip">Settings</span></button></div>
+</nav>
+
+<!-- MAIN -->
+<div class="main">
+<header class="top">
+<div style="display:flex;align-items:center">
+<span class="brand gt">Socialto</span>
+<span class="tag mono">Leave Socials 2 Pros</span>
+</div>
+<div style="display:flex;align-items:center;gap:12px">
+<span style="display:flex;align-items:center;gap:5px"><span style="width:5px;height:5px;border-radius:50%;background:var(--gn);animation:pulse 2s infinite"></span><span class="mono" style="font-size:9px;color:var(--gn);text-transform:uppercase;letter-spacing:.1em">Engine Active</span></span>
+<span class="mono" style="font-size:11px;color:var(--t3)">&infin; credits</span>
+<div style="width:26px;height:26px;border-radius:50%;background:var(--g);display:grid;place-items:center"><span class="ms" style="font-size:12px;color:#fff">person</span></div>
+</div>
+</header>
+
+<div class="pages">
+<div class="gridbg" style="position:fixed;inset:0;pointer-events:none;z-index:0"></div>
+
+<!-- CHAT -->
+<div id="pg-chat" class="pg on">
+<div class="glow" style="position:absolute;inset:0;pointer-events:none"></div>
+<div class="cht" style="position:relative;z-index:2" id="ca">
+<div id="hero" class="hero">
+<div class="badge mono">&#10022; AI Engine v2.0 — 9 Platforms × 25+ Creator Formats</div>
+<h1>Leave Socials<br><span class="gt">2 Pros.</span></h1>
+<p>Paste any product URL, a viral video, or describe what you're building. We generate scripts, videos, ads, and social kits for 9 platforms.</p>
+<div class="qk">
+<button onclick="q('https://apps.apple.com/us/app/exif-metadata/id6753957906')">Try: Exif Metadata</button>
+<button onclick="q('Scan competitor ads for PhotoRoom')">Scan Competitor Ads</button>
+<button onclick="q('https://www.tiktok.com/@hormozi/video/7329847261')">Clone a TikTok</button>
+<button onclick="q('The Hormozi format for my app')">The Hormozi</button>
+<button onclick="q('The Beast format for my app')">The Beast</button>
+<button onclick="q('Show all creator formats')">All Formats</button>
+</div>
+</div>
+<div id="msgs"></div>
+</div>
+<div class="cinp"><div class="cbox"><span class="ms" style="font-size:16px;color:var(--t3);cursor:pointer">attach_file</span><input id="inp" placeholder="Paste URL, describe your product, pick a format..." onkeydown="if(event.key==='Enter')send()"/><button class="cbtn" onclick="send()"><span class="ms mf" style="font-size:15px;color:#fff">arrow_upward</span></button></div></div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="pg-dash" class="pg">
+<div class="glow" style="position:absolute;inset:0;pointer-events:none;opacity:.4"></div>
+<div style="max-width:1060px;margin:0 auto;padding:28px 20px;position:relative;z-index:2" class="space">
+<div style="display:flex;align-items:center;gap:14px;margin-bottom:24px">
+<div style="width:48px;height:48px;background:#FF9500;border-radius:12px;display:grid;place-items:center;color:#fff;font-weight:800;font-size:13px">EXIF</div>
+<div><h2 style="font-size:18px;font-weight:800;letter-spacing:-.03em">Exif Metadata</h2><div style="display:flex;gap:6px;align-items:center;font-size:11px;color:var(--t2)"><span style="color:#F9A825">&#9733; 4.6</span>&middot; Photography &middot; Free &middot; <a href="#" style="color:var(--ac);text-decoration:none">App Store &#8599;</a></div></div>
+<div style="margin-left:auto;display:flex;gap:6px"><button class="btn btn-s">Free Package</button><button class="btn btn-p">Videos from $9.99</button></div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px">
+<div class="gc stat"><div class="lb mono">Scripts</div><div class="val">12 / &infin;</div><div class="sub">Unlimited</div></div>
+<div class="gc stat"><div class="lb mono">Social Captions</div><div class="val">108</div><div class="sub">12 &times; 9 platforms</div></div>
+<div class="gc stat"><div class="lb mono">Ad Creatives</div><div class="val">36</div><div class="sub">12 &times; 3 variants</div></div>
+<div class="gc stat"><div class="lb mono">Autoresearch</div><div class="val gt">8.7</div><div class="sub">Top 12% in niche</div></div>
+</div>
+<div class="gc" style="margin-bottom:20px">
+<div style="padding:12px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--ghost)"><span style="font-size:13px;font-weight:700">Generated Scripts</span><span class="mono" style="font-size:10px;color:var(--ac);cursor:pointer">View All &rarr;</span></div>
+<div id="scriptList">
+<div class="srow" style="padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.03);cursor:pointer;transition:.1s" onmouseover="this.style.background='rgba(255,255,255,.03)'" onmouseout="this.style.background='transparent'"><div style="display:flex;align-items:center;gap:8px"><span class="badge-pill" style="background:rgba(194,24,91,.15);color:var(--ac)">The Hormozi</span><span style="font-size:12px">Your photos are exposing your home address...</span></div><div style="display:flex;align-items:center;gap:8px"><span class="mono" style="font-size:10px;color:var(--gn)">9.1</span><span class="mono" style="font-size:10px;color:var(--t3)">45s</span><span class="ms" style="font-size:14px;color:var(--t3)">chevron_right</span></div></div>
+<div class="srow" style="padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.03);cursor:pointer;transition:.1s" onmouseover="this.style.background='rgba(255,255,255,.03)'" onmouseout="this.style.background='transparent'"><div style="display:flex;align-items:center;gap:8px"><span class="badge-pill" style="background:rgba(230,81,0,.15);color:var(--or2)">The Beast</span><span style="font-size:12px">97% of photos contain hidden GPS data...</span></div><div style="display:flex;align-items:center;gap:8px"><span class="mono" style="font-size:10px;color:var(--gn)">8.6</span><span class="mono" style="font-size:10px;color:var(--t3)">38s</span><span class="ms" style="font-size:14px;color:var(--t3)">chevron_right</span></div></div>
+<div class="srow" style="padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.03);cursor:pointer;transition:.1s" onmouseover="this.style.background='rgba(255,255,255,.03)'" onmouseout="this.style.background='transparent'"><div style="display:flex;align-items:center;gap:8px"><span class="badge-pill" style="background:rgba(194,24,91,.15);color:var(--ac)">The Gary</span><span style="font-size:12px">Stop complaining about privacy. DO THIS instead.</span></div><div style="display:flex;align-items:center;gap:8px"><span class="mono" style="font-size:10px;color:var(--gn)">8.3</span><span class="mono" style="font-size:10px;color:var(--t3)">32s</span><span class="ms" style="font-size:14px;color:var(--t3)">chevron_right</span></div></div>
+<div class="srow" style="padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.03);cursor:pointer;transition:.1s" onmouseover="this.style.background='rgba(255,255,255,.03)'" onmouseout="this.style.background='transparent'"><div style="display:flex;align-items:center;gap:8px"><span class="badge-pill" style="background:rgba(78,222,163,.15);color:var(--gn)">The Graham</span><span style="font-size:12px">$4,700 lawsuit because of ONE photo...</span></div><div style="display:flex;align-items:center;gap:8px"><span class="mono" style="font-size:10px;color:var(--gn)">8.8</span><span class="mono" style="font-size:10px;color:var(--t3)">40s</span><span class="ms" style="font-size:14px;color:var(--t3)">chevron_right</span></div></div>
+<div class="srow" style="padding:12px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:.1s" onmouseover="this.style.background='rgba(255,255,255,.03)'" onmouseout="this.style.background='transparent'"><div style="display:flex;align-items:center;gap:8px"><span class="badge-pill" style="background:rgba(96,165,250,.15);color:var(--bl)">The Dr. Berg</span><span style="font-size:12px">Everyone thinks airplane mode stops tracking...</span></div><div style="display:flex;align-items:center;gap:8px"><span class="mono" style="font-size:10px;color:var(--gn)">7.9</span><span class="mono" style="font-size:10px;color:var(--t3)">42s</span><span class="ms" style="font-size:14px;color:var(--t3)">chevron_right</span></div></div>
+</div>
+</div>
+<div class="term"><div class="th"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="mono" style="font-size:9px;color:var(--t3);margin-left:auto;text-transform:uppercase;letter-spacing:.1em">Engine Log</span></div><code><span style="color:var(--t3)">[14:22:01]</span> <span class="hi">INFO</span> Scraped Exif Metadata via iTunes API (free)<br><span style="color:var(--t3)">[14:22:03]</span> <span class="gn">SYNC</span> Niche research: photography privacy (Reddit + iTunes)<br><span style="color:var(--t3)">[14:22:08]</span> <span class="or">PROC</span> Generating 5 scripts: Hormozi, Beast, Gary, Graham, Dr.Berg<br><span style="color:var(--t3)">[14:22:42]</span> <span class="gn">DONE</span> 108 social captions generated (12 scripts &times; 9 platforms)<br><span style="color:var(--t3)">[14:22:44]</span> <span class="gn">DONE</span> 36 ad creatives ready (Facebook, TikTok, Google)</code></div>
+</div>
+</div>
+
+<!-- FORMATS -->
+<div id="pg-formats" class="pg">
+<div style="max-width:1060px;margin:0 auto;padding:28px 20px;position:relative;z-index:2">
+<div style="margin-bottom:24px"><h2 style="font-size:22px;font-weight:800;letter-spacing:-.03em">Creator Format Library</h2><p style="font-size:13px;color:var(--t2);margin-top:4px">Clone any creator's viral style. 25+ formats, growing daily.</p></div>
+<div style="display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap">
+<button class="btn btn-p" style="font-size:10px;padding:5px 12px">All</button>
+<button class="btn btn-s" style="font-size:10px;padding:5px 12px">Controversy</button>
+<button class="btn btn-s" style="font-size:10px;padding:5px 12px">Education</button>
+<button class="btn btn-s" style="font-size:10px;padding:5px 12px">Hot Takes</button>
+<button class="btn btn-s" style="font-size:10px;padding:5px 12px">Tutorial</button>
+<button class="btn btn-s" style="font-size:10px;padding:5px 12px">Money</button>
+<button class="btn btn-s" style="font-size:10px;padding:5px 12px">Story</button>
+<button class="btn btn-s" style="font-size:10px;padding:5px 12px">Aesthetic</button>
+<button class="btn btn-s" style="font-size:10px;padding:5px 12px">Myth</button>
+<button class="btn btn-s" style="font-size:10px;padding:5px 12px">POV</button>
+</div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+<div class="gc fmt"><h3>The Hormozi</h3><div class="rate" style="color:var(--ac)">85% viral</div><div class="desc">Bold authority. CAPS text overlay. "$100M" positioning. Direct energy.</div><div class="plat mono">Best: TikTok, YouTube, Reels</div><button class="btn btn-p" style="width:100%;margin-top:10px">Use This Format</button></div>
+<div class="gc fmt"><h3>The Beast</h3><div class="rate" style="color:var(--or2)">83% viral</div><div class="desc">Shocking stat opener. Spectacle reveals. "$X challenge" framing.</div><div class="plat mono">Best: YouTube, TikTok, All</div><button class="btn btn-p" style="width:100%;margin-top:10px">Use This Format</button></div>
+<div class="gc fmt"><h3>The Casper</h3><div class="rate" style="color:var(--ac)">82% viral</div><div class="desc">Rage bait skit. Controversy hook. Triggers outrage comments.</div><div class="plat mono">Best: TikTok, Reels</div><button class="btn btn-p" style="width:100%;margin-top:10px">Use This Format</button></div>
+<div class="gc fmt"><h3>The Zach</h3><div class="rate" style="color:var(--gn)">81% viral</div><div class="desc">Magic edit illusion. Satisfying reveal. Seamless transition.</div><div class="plat mono">Best: Reels, TikTok, Shorts</div><button class="btn btn-p" style="width:100%;margin-top:10px">Use This Format</button></div>
+<div class="gc fmt"><h3>The Caleb</h3><div class="rate" style="color:var(--or2)">80% viral</div><div class="desc">Financial audit/roast. "Let me see your budget." Brutal honesty.</div><div class="plat mono">Best: TikTok, YouTube</div><button class="btn btn-p" style="width:100%;margin-top:10px">Use This Format</button></div>
+<div class="gc fmt"><h3>The Gary</h3><div class="rate" style="color:var(--ac)">79% viral</div><div class="desc">Raw energy rant. "Stop making excuses." Motivational anger.</div><div class="plat mono">Best: TikTok, X, LinkedIn</div><button class="btn btn-p" style="width:100%;margin-top:10px">Use This Format</button></div>
+<div class="gc fmt"><h3>The Khaby</h3><div class="rate" style="color:var(--bl)">79% viral</div><div class="desc">Silent reaction. "Obvious solution" comedy. No words needed.</div><div class="plat mono">Best: TikTok, Reels</div><button class="btn btn-p" style="width:100%;margin-top:10px">Use This Format</button></div>
+<div class="gc fmt"><h3>The Fireship</h3><div class="rate" style="color:var(--or2)">78% viral</div><div class="desc">"X in 100 seconds." Fast explainer. Dense info. Dev humor.</div><div class="plat mono">Best: YouTube, TikTok</div><button class="btn btn-p" style="width:100%;margin-top:10px">Use This Format</button></div>
+<div class="gc fmt"><h3>The Chris</h3><div class="rate" style="color:var(--ac)">77% viral</div><div class="desc">Provocative clip. Self-improvement angle. Debate-starter.</div><div class="plat mono">Best: TikTok, YouTube, X</div><button class="btn btn-p" style="width:100%;margin-top:10px">Use This Format</button></div>
+<div class="gc fmt"><h3>The Graham</h3><div class="rate" style="color:var(--gn)">77% viral</div><div class="desc">"That's a lot of damage" react. Price breakdowns. Frugal-shock.</div><div class="plat mono">Best: YouTube, TikTok</div><button class="btn btn-p" style="width:100%;margin-top:10px">Use This Format</button></div>
+<div class="gc fmt"><h3>The Huba</h3><div class="rate" style="color:var(--bl)">76% viral</div><div class="desc">Quick hack tutorial. "Secret trick." Fast pacing. Screen recording.</div><div class="plat mono">Best: TikTok, Shorts</div><button class="btn btn-p" style="width:100%;margin-top:10px">Use This Format</button></div>
+<div class="gc fmt"><h3>The Johnny</h3><div class="rate" style="color:var(--or2)">76% viral</div><div class="desc">Visual storytelling. Maps/graphics. "Why does X happen" explainer.</div><div class="plat mono">Best: YouTube, TikTok</div><button class="btn btn-p" style="width:100%;margin-top:10px">Use This Format</button></div>
+</div>
+<p style="text-align:center;margin-top:20px;font-size:12px;color:var(--t3)">Don't see your style? Paste any viral video URL and we'll reverse-engineer it. <span style="color:var(--ac);cursor:pointer" onclick="go('chat')">&rarr; Go to Chat</span></p>
+</div>
+</div>
+
+<!-- BUNDLE -->
+<div id="pg-bundle" class="pg">
+<div style="max-width:1060px;margin:0 auto;padding:28px 20px;position:relative;z-index:2">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px"><div><h2 style="font-size:20px;font-weight:800;letter-spacing:-.03em">Export Bundle</h2><span class="badge-pill mono" style="background:rgba(78,222,163,.12);color:var(--gn);margin-top:6px;display:inline-block">&#9679; READY</span></div><div style="display:flex;gap:6px"><button class="btn btn-s">Push to Cloud</button><button class="btn btn-p">Download All (.ZIP)</button></div></div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+<div class="gc" style="padding:16px"><div style="font-size:18px;margin-bottom:8px">&#9835;</div><h4 style="font-size:13px;font-weight:700;margin-bottom:4px">TikTok</h4><div style="font-size:10px;color:var(--t3);line-height:1.7">3 Viral Hooks (9:16) &middot; 12 Hashtags &middot; Trending Audio</div><button class="btn btn-s" style="width:100%;margin-top:10px;font-size:10px">View Renders</button></div>
+<div class="gc" style="padding:16px"><div style="font-size:18px;margin-bottom:8px">&#128247;</div><h4 style="font-size:13px;font-weight:700;margin-bottom:4px">IG Reels + Feed</h4><div style="font-size:10px;color:var(--t3);line-height:1.7">2 Reels &middot; 1 Carousel &middot; Story Variants</div><button class="btn btn-s" style="width:100%;margin-top:10px;font-size:10px">Export Layers</button></div>
+<div class="gc" style="padding:16px"><div style="color:#0A66C2;font-size:16px;font-weight:800;margin-bottom:8px">in</div><h4 style="font-size:13px;font-weight:700;margin-bottom:4px">LinkedIn B2B</h4><div style="font-size:10px;color:var(--t3);line-height:1.7">PDF Carousel &middot; 3 Posts &middot; CEO Ghostwrite</div><button class="btn btn-s" style="width:100%;margin-top:10px;font-size:10px">Review Copy</button></div>
+<div class="gc" style="padding:16px"><div style="font-size:16px;font-weight:800;margin-bottom:8px">&#120143;</div><h4 style="font-size:13px;font-weight:700;margin-bottom:4px">X Threads</h4><div style="font-size:10px;color:var(--t3);line-height:1.7">3 Threads &middot; 12 Media &middot; Auto-RT Schedule</div><button class="btn btn-s" style="width:100%;margin-top:10px;font-size:10px">Queue Thread</button></div>
+<div class="gc" style="padding:16px"><div style="color:#FF0000;font-size:18px;margin-bottom:8px">&#9654;</div><h4 style="font-size:13px;font-weight:700;margin-bottom:4px">YouTube</h4><div style="font-size:10px;color:var(--t3);line-height:1.7">3 Shorts (4K) &middot; Thumbnails &middot; SEO Tags</div><button class="btn btn-s" style="width:100%;margin-top:10px;font-size:10px">View Thumbnails</button></div>
+<div class="gc" style="padding:16px"><div style="color:#1877F2;font-size:16px;font-weight:800;margin-bottom:8px">f</div><h4 style="font-size:13px;font-weight:700;margin-bottom:4px">FB Ads + Reels</h4><div style="font-size:10px;color:var(--t3);line-height:1.7">Ad Creatives &middot; Reels &middot; Story Variants</div><button class="btn btn-s" style="width:100%;margin-top:10px;font-size:10px">View Ad Set</button></div>
+<div class="gc" style="padding:16px"><div style="font-size:18px;margin-bottom:8px">&#128123;</div><h4 style="font-size:13px;font-weight:700;margin-bottom:4px">Snapchat</h4><div style="font-size:10px;color:var(--t3);line-height:1.7">Spotlight Cuts &middot; AR Lens Ideas</div><button class="btn btn-s" style="width:100%;margin-top:10px;font-size:10px">Download</button></div>
+<div class="gc" style="padding:16px"><div style="color:#E60023;font-size:18px;margin-bottom:8px">&#128204;</div><h4 style="font-size:13px;font-weight:700;margin-bottom:4px">Pinterest</h4><div style="font-size:10px;color:var(--t3);line-height:1.7">Idea Pins (2:3) &middot; SEO Descriptions</div><button class="btn btn-s" style="width:100%;margin-top:10px;font-size:10px">Pinterest SEO</button></div>
+<div class="gc" style="padding:16px"><div style="color:#9146FF;font-size:18px;margin-bottom:8px">&#128250;</div><h4 style="font-size:13px;font-weight:700;margin-bottom:4px">Twitch</h4><div style="font-size:10px;color:var(--t3);line-height:1.7">Offline Banner &middot; Overlays &middot; !Commands</div><button class="btn btn-s" style="width:100%;margin-top:10px;font-size:10px">Export Overlays</button></div>
+</div>
+</div>
+</div>
+
+<!-- ADS -->
+<div id="pg-ads" class="pg">
+<div style="max-width:1060px;margin:0 auto;padding:28px 20px;position:relative;z-index:2">
+<h2 style="font-size:22px;font-weight:800;letter-spacing:-.03em;margin-bottom:6px">Campaign Intelligence</h2>
+<p style="font-size:13px;color:var(--t2);margin-bottom:20px">Scan competitor ads. Generate counter-campaigns. All major ad platforms.</p>
+<div style="display:flex;gap:8px;margin-bottom:20px"><button class="btn btn-p" style="font-size:11px">Competitor Scanner</button><button class="btn btn-s" style="font-size:11px">My Campaigns</button><button class="btn btn-s" style="font-size:11px">Ad Library</button></div>
+<div class="gc" style="padding:20px;margin-bottom:16px">
+<div style="display:flex;gap:10px;align-items:center;margin-bottom:16px"><input style="flex:1;background:var(--s1);border:1px solid var(--ghost);border-radius:var(--r);padding:10px 14px;font-size:13px;color:var(--tx);font-family:inherit;outline:none" placeholder="Enter competitor name or URL..." value="PhotoRoom"/><button class="btn btn-p">Scan Ads</button></div>
+<div style="display:flex;gap:8px;margin-bottom:14px;font-size:10px;color:var(--t3)"><span>Scanning:</span><span style="color:var(--gn)">&#10003; Meta Ad Library</span><span style="color:var(--gn)">&#10003; TikTok Creative Center</span><span style="color:var(--gn)">&#10003; Google Ads Transparency</span><span class="mono" style="color:var(--t3)">All FREE</span></div>
+<div style="font-size:13px;font-weight:700;margin-bottom:12px">Found: <span style="color:var(--ac)">23 active ads</span> across 3 platforms</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+<div class="gc" style="padding:12px"><div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="color:#1877F2;font-weight:800;font-size:13px">f</span><span class="mono" style="font-size:9px;color:var(--t3)">$500-1K/day</span></div><div style="font-size:11px;margin-bottom:6px">"Remove backgrounds in 1 tap. 50M+ downloads."</div><div style="font-size:10px;color:var(--t3);margin-bottom:8px">Strategy: App Install &middot; Tutorial Hook</div><button class="btn btn-p" style="width:100%;font-size:9px">Generate Counter-Ad</button></div>
+<div class="gc" style="padding:12px"><div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-size:13px">&#9835;</span><span class="mono" style="font-size:9px;color:var(--t3)">$200-500/day</span></div><div style="font-size:11px;margin-bottom:6px">"POV: you discover this photo editing hack"</div><div style="font-size:10px;color:var(--t3);margin-bottom:8px">Strategy: Spark Ad &middot; POV Format</div><button class="btn btn-p" style="width:100%;font-size:9px">Generate Counter-Ad</button></div>
+<div class="gc" style="padding:12px"><div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="color:#FF0000;font-size:13px">&#9654;</span><span class="mono" style="font-size:9px;color:var(--t3)">$300-800/day</span></div><div style="font-size:11px;margin-bottom:6px">"How to edit photos like a PRO in 30 seconds"</div><div style="font-size:10px;color:var(--t3);margin-bottom:8px">Strategy: In-Stream &middot; Tutorial Hook</div><button class="btn btn-p" style="width:100%;font-size:9px">Generate Counter-Ad</button></div>
+</div>
+</div>
+<div class="gc" style="padding:14px;background:rgba(194,24,91,.05);border-color:rgba(194,24,91,.15)"><div style="font-size:12px;font-weight:700;margin-bottom:6px">Gap Opportunity</div><div style="font-size:11px;color:var(--t2)">No competitor using <strong style="color:var(--tx)">controversy/rage-bait hooks</strong> for photo editing ads. The Hormozi format could capture untapped attention in this niche.</div></div>
+</div>
+</div>
+
+<!-- CALENDAR -->
+<div id="pg-cal" class="pg">
+<div style="max-width:1060px;margin:0 auto;padding:28px 20px;position:relative;z-index:2">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px"><h2 style="font-size:20px;font-weight:800;letter-spacing:-.03em">Content Calendar</h2><div style="display:flex;gap:6px"><button class="btn btn-p" style="font-size:10px">Auto-Fill Week</button><button class="btn btn-s" style="font-size:10px">Week</button><button class="btn btn-s" style="font-size:10px">Month</button></div></div>
+<div style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px">
+<div style="text-align:center;padding:6px;font-size:10px;color:var(--t3);font-weight:700" class="mono">MON</div><div style="text-align:center;padding:6px;font-size:10px;color:var(--t3);font-weight:700" class="mono">TUE</div><div style="text-align:center;padding:6px;font-size:10px;color:var(--t3);font-weight:700" class="mono">WED</div><div style="text-align:center;padding:6px;font-size:10px;color:var(--t3);font-weight:700" class="mono">THU</div><div style="text-align:center;padding:6px;font-size:10px;color:var(--t3);font-weight:700" class="mono">FRI</div><div style="text-align:center;padding:6px;font-size:10px;color:var(--t3);font-weight:700" class="mono">SAT</div><div style="text-align:center;padding:6px;font-size:10px;color:var(--t3);font-weight:700" class="mono">SUN</div>
+<div class="gc" style="padding:10px;min-height:100px"><div style="font-size:9px;color:var(--t3);margin-bottom:6px" class="mono">24 MAR</div><div style="display:flex;flex-wrap:wrap;gap:3px"><span style="font-size:10px" title="TikTok 7pm">&#9835;</span><span style="font-size:10px" title="YouTube 2pm">&#9654;</span><span style="font-size:10px" title="X 9am">&#120143;</span></div><div style="margin-top:6px;font-size:8px;color:var(--ac)" class="mono">3 posts</div></div>
+<div class="gc" style="padding:10px;min-height:100px"><div style="font-size:9px;color:var(--t3);margin-bottom:6px" class="mono">25 MAR</div><div style="display:flex;flex-wrap:wrap;gap:3px"><span style="font-size:10px">&#128247;</span><span style="font-size:10px">f</span><span style="font-size:10px">&#120143;</span></div><div style="margin-top:6px;font-size:8px;color:var(--ac)" class="mono">3 posts</div></div>
+<div class="gc" style="padding:10px;min-height:100px"><div style="font-size:9px;color:var(--t3);margin-bottom:6px" class="mono">26 MAR</div><div style="display:flex;flex-wrap:wrap;gap:3px"><span style="font-size:10px">&#9835;</span><span style="font-size:10px">&#9654;</span><span style="font-size:10px;color:#0A66C2;font-weight:800;font-size:8px">in</span></div><div style="margin-top:6px;font-size:8px;color:var(--ac)" class="mono">3 posts</div></div>
+<div class="gc" style="padding:10px;min-height:100px"><div style="font-size:9px;color:var(--t3);margin-bottom:6px" class="mono">27 MAR</div><div style="display:flex;flex-wrap:wrap;gap:3px"><span style="font-size:10px">&#128247;</span><span style="font-size:10px">f</span><span style="font-size:10px">&#120143;</span></div><div style="margin-top:6px;font-size:8px;color:var(--ac)" class="mono">3 posts</div></div>
+<div class="gc" style="padding:10px;min-height:100px"><div style="font-size:9px;color:var(--t3);margin-bottom:6px" class="mono">28 MAR</div><div style="display:flex;flex-wrap:wrap;gap:3px"><span style="font-size:10px">&#9835;</span><span style="font-size:10px">&#9654;</span><span style="font-size:10px">&#120143;</span></div><div style="margin-top:6px;font-size:8px;color:var(--ac)" class="mono">3 posts</div></div>
+<div class="gc" style="padding:10px;min-height:100px"><div style="font-size:9px;color:var(--t3);margin-bottom:6px" class="mono">29 MAR</div><div style="display:flex;flex-wrap:wrap;gap:3px"><span style="font-size:10px">&#128204;</span><span style="font-size:10px">&#128123;</span><span style="font-size:10px">f</span></div><div style="margin-top:6px;font-size:8px;color:var(--gn)" class="mono">3 posts</div></div>
+<div class="gc" style="padding:10px;min-height:100px"><div style="font-size:9px;color:var(--t3);margin-bottom:6px" class="mono">30 MAR</div><div style="display:flex;flex-wrap:wrap;gap:3px"><span style="font-size:10px">&#128204;</span><span style="font-size:10px">&#128123;</span><span style="font-size:10px">&#128250;</span></div><div style="margin-top:6px;font-size:8px;color:var(--gn)" class="mono">3 posts</div></div>
+</div>
+</div>
+</div>
+
+<!-- PRICING -->
+<div id="pg-pricing" class="pg">
+<div class="glow" style="position:absolute;inset:0;pointer-events:none;opacity:.4"></div>
+<div style="max-width:960px;margin:0 auto;padding:48px 20px;position:relative;z-index:2;text-align:center">
+<h1 style="font-size:40px;font-weight:800;letter-spacing:-.04em;margin-bottom:6px">Leave Socials<br><span class="gt">2 Pros.</span></h1>
+<p style="font-size:14px;color:var(--t2);margin-bottom:36px">One platform. Nine destinations. Zero headache.</p>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;text-align:left">
+<div class="gc" style="padding:28px"><span class="mono" style="font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.15em">Tier 01</span><h3 style="font-size:22px;font-weight:800;margin:6px 0 2px">SOLO</h3><div style="margin-bottom:12px"><span style="font-size:30px;font-weight:800">$29</span><span style="color:var(--t3)">/mo</span></div><p style="font-size:11px;color:var(--t2);line-height:1.6;margin-bottom:20px">For indie builders and solo devs launching their first product.</p><div style="display:flex;flex-direction:column;gap:8px;margin-bottom:24px;font-size:12px"><div style="display:flex;align-items:center;gap:6px"><span class="ms" style="font-size:14px;color:var(--ac)">check_circle</span>Unlimited scripts (all 25+ formats)</div><div style="display:flex;align-items:center;gap:6px"><span class="ms" style="font-size:14px;color:var(--ac)">check_circle</span>9 platform social kits</div><div style="display:flex;align-items:center;gap:6px"><span class="ms" style="font-size:14px;color:var(--ac)">check_circle</span>3 AI videos/month</div><div style="display:flex;align-items:center;gap:6px"><span class="ms" style="font-size:14px;color:var(--ac)">check_circle</span>Competitor ad scanner</div></div><button class="btn btn-s" style="width:100%;padding:12px;font-size:12px">START BUILDING</button></div>
+<div class="gc glow-ac" style="padding:28px;transform:scale(1.03);z-index:2;position:relative"><div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);padding:4px 14px;background:var(--g);border-radius:999px;font-size:9px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:.1em">Most Popular</div><span class="mono" style="font-size:9px;color:var(--ac);text-transform:uppercase;letter-spacing:.15em">Tier 02</span><h3 style="font-size:22px;font-weight:800;margin:6px 0 2px">AGENCY</h3><div style="margin-bottom:12px"><span style="font-size:30px;font-weight:800">$99</span><span style="color:var(--t3)">/mo</span></div><p style="font-size:11px;color:var(--t2);line-height:1.6;margin-bottom:20px">For agencies and teams scaling content across clients.</p><div style="display:flex;flex-direction:column;gap:8px;margin-bottom:24px;font-size:12px"><div style="display:flex;align-items:center;gap:6px"><span class="ms mf" style="font-size:14px;color:var(--ac)">check_circle</span><strong>Unlimited</strong> AI videos</div><div style="display:flex;align-items:center;gap:6px"><span class="ms mf" style="font-size:14px;color:var(--ac)">check_circle</span>Full ad campaign generator</div><div style="display:flex;align-items:center;gap:6px"><span class="ms mf" style="font-size:14px;color:var(--ac)">check_circle</span>Content calendar + scheduling</div><div style="display:flex;align-items:center;gap:6px"><span class="ms mf" style="font-size:14px;color:var(--ac)">check_circle</span>Multi-product workspace</div><div style="display:flex;align-items:center;gap:6px"><span class="ms mf" style="font-size:14px;color:var(--ac)">check_circle</span>API access</div></div><button class="btn btn-p" style="width:100%;padding:12px;font-size:12px">SCALE YOUR AGENCY</button></div>
+<div class="gc" style="padding:28px"><span class="mono" style="font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:.15em">Tier 03</span><h3 style="font-size:22px;font-weight:800;margin:6px 0 2px">ENTERPRISE</h3><div style="margin-bottom:12px"><span style="font-size:30px;font-weight:800">Custom</span></div><p style="font-size:11px;color:var(--t2);line-height:1.6;margin-bottom:20px">White-label, SLA, dedicated infrastructure.</p><div style="display:flex;flex-direction:column;gap:8px;margin-bottom:24px;font-size:12px"><div style="display:flex;align-items:center;gap:6px"><span class="ms" style="font-size:14px;color:var(--gn)">hub</span>Dedicated infrastructure</div><div style="display:flex;align-items:center;gap:6px"><span class="ms" style="font-size:14px;color:var(--gn)">verified_user</span>SLA &amp; compliance</div><div style="display:flex;align-items:center;gap:6px"><span class="ms" style="font-size:14px;color:var(--gn)">support_agent</span>Engineering onboarding</div></div><button class="btn btn-s" style="width:100%;padding:12px;font-size:12px">CONTACT ENGINEERING</button></div>
+</div>
+<div style="margin-top:40px"><h3 style="font-size:16px;font-weight:700;margin-bottom:6px">One Schema. Nine Destinations.</h3><div style="display:flex;justify-content:center;gap:16px;margin-top:16px"><div style="text-align:center"><div class="gc" style="width:44px;height:44px;display:grid;place-items:center;cursor:pointer">&#9835;</div><span class="mono" style="font-size:8px;color:var(--t3)">TikTok</span></div><div style="text-align:center"><div class="gc" style="width:44px;height:44px;display:grid;place-items:center;cursor:pointer">&#128247;</div><span class="mono" style="font-size:8px;color:var(--t3)">IG</span></div><div style="text-align:center"><div class="gc" style="width:44px;height:44px;display:grid;place-items:center;color:#FF0000;cursor:pointer">&#9654;</div><span class="mono" style="font-size:8px;color:var(--t3)">YT</span></div><div style="text-align:center"><div class="gc" style="width:44px;height:44px;display:grid;place-items:center;cursor:pointer">&#120143;</div><span class="mono" style="font-size:8px;color:var(--t3)">X</span></div><div style="text-align:center"><div class="gc" style="width:44px;height:44px;display:grid;place-items:center;color:#0A66C2;font-weight:800;font-size:12px;cursor:pointer">in</div><span class="mono" style="font-size:8px;color:var(--t3)">LinkedIn</span></div><div style="text-align:center"><div class="gc" style="width:44px;height:44px;display:grid;place-items:center;color:#1877F2;font-weight:800;cursor:pointer">f</div><span class="mono" style="font-size:8px;color:var(--t3)">FB</span></div><div style="text-align:center"><div class="gc" style="width:44px;height:44px;display:grid;place-items:center;cursor:pointer">&#128123;</div><span class="mono" style="font-size:8px;color:var(--t3)">Snap</span></div><div style="text-align:center"><div class="gc" style="width:44px;height:44px;display:grid;place-items:center;color:#E60023;cursor:pointer">&#128204;</div><span class="mono" style="font-size:8px;color:var(--t3)">Pinterest</span></div><div style="text-align:center"><div class="gc" style="width:44px;height:44px;display:grid;place-items:center;color:#9146FF;cursor:pointer">&#128250;</div><span class="mono" style="font-size:8px;color:var(--t3)">Twitch</span></div></div></div>
+</div>
+</div>
+
+</div>
+</div>
+
+<script>
+function go(p){document.querySelectorAll('.pg').forEach(function(x){x.classList.remove('on')});document.getElementById('pg-'+p).classList.add('on');document.querySelectorAll('.sn').forEach(function(b){b.classList.remove('on')});if(event&&event.currentTarget)event.currentTarget.classList.add('on')}
+function q(t){document.getElementById('inp').value=t;send()}
+function send(){
+var inp=document.getElementById('inp'),t=inp.value.trim();if(!t)return;inp.value='';
+var h=document.getElementById('hero');if(h)h.style.display='none';
+var b=document.getElementById('msgs');
+b.innerHTML+='<div class="msg u"><div class="bub">'+e(t)+'</div><div class="av us"><span class="ms" style="font-size:11px">person</span></div></div>';
+var tid='t'+Date.now();
+b.innerHTML+='<div class="msg" id="'+tid+'"><div class="av ai"><span class="ms mf" style="font-size:11px;color:#fff">all_inclusive</span></div><div class="bub"><div class="typi"><span>&middot;</span><span>&middot;</span><span>&middot;</span></div></div></div>';sc();
+setTimeout(function(){var el=document.getElementById(tid);if(el)el.remove();
+var isApp=t.indexOf('apps.apple.com')>=0||t.indexOf('play.google.com')>=0||t.indexOf('chrome.google.com')>=0||t.indexOf('shopify')>=0;
+var isVid=t.indexOf('tiktok.com')>=0||t.indexOf('youtube.com/shorts')>=0||t.indexOf('instagram.com/reel')>=0;
+var isFmt=t.toLowerCase().indexOf('hormozi')>=0||t.toLowerCase().indexOf('beast')>=0||t.toLowerCase().indexOf('gary')>=0||t.toLowerCase().indexOf('format')>=0;
+var isAd=t.toLowerCase().indexOf('scan')>=0||t.toLowerCase().indexOf('competitor')>=0||t.toLowerCase().indexOf('ads')>=0;
+var isTpl=t.toLowerCase().indexOf('format')>=0||t.toLowerCase().indexOf('template')>=0||t.toLowerCase().indexOf('style')>=0;
+b.innerHTML+=(isApp?appR():isVid?cloneR(t):isAd?adR():isFmt?fmtR(t):isTpl?tplR():genR());sc()},1100)}
+function sc(){var a=document.getElementById('pg-chat');setTimeout(function(){a.scrollTop=a.scrollHeight},50)}
+function e(s){return s.replace(/</g,'&lt;')}
+function appR(){return '<div class="msg"><div class="av ai"><span class="ms mf" style="font-size:11px;color:#fff">all_inclusive</span></div><div class="bub"><p style="margin-bottom:8px;color:var(--t2)">Product detected. Scraping via iTunes API (free)...</p><div class="gc" style="padding:14px;border-color:rgba(194,24,91,.2)"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><div style="width:32px;height:32px;background:#FF9500;border-radius:8px;display:grid;place-items:center;color:#fff;font-weight:800;font-size:8px">EXIF</div><span style="font-size:13px;font-weight:700">Exif Metadata</span></div><div class="row"><span class="lb">Rating</span><span class="vl">&#9733; 4.6 (2,847)</span></div><div class="row"><span class="lb">Category</span><span class="vl">Photography</span></div><div class="row"><span class="lb">Price</span><span class="vl" style="color:var(--gn)">Free</span></div><div class="row"><span class="lb">Assets</span><span class="vl">Icon (3) + 8 screenshots + branding</span></div><div style="display:flex;gap:6px;margin-top:10px"><button class="btn btn-p" onclick="go(\'dash\')">Generate Content</button><button class="btn btn-s" onclick="go(\'ads\')">Scan Competitor Ads</button></div></div></div></div>'}
+function cloneR(u){var p=u.indexOf('tiktok')>=0?'TikTok':u.indexOf('youtube')>=0?'YouTube':'Instagram';return '<div class="msg"><div class="av ai"><span class="ms mf" style="font-size:11px;color:#fff">all_inclusive</span></div><div class="bub"><p style="margin-bottom:8px;color:var(--t2)">Analyzing '+p+' video...</p><div class="gc" style="padding:14px;border-color:rgba(194,24,91,.2)"><div style="font-size:13px;font-weight:700;margin-bottom:10px">Clone Analysis</div><div class="row"><span class="lb">Platform</span><span class="vl">'+p+'</span></div><div class="row"><span class="lb">Detected Format</span><span class="vl" style="color:var(--ac)">The Hormozi</span></div><div class="row"><span class="lb">Hook Pattern</span><span class="vl">Bold authority statement</span></div><div class="row"><span class="lb">Pacing</span><span class="vl">Fast (2-3s cuts)</span></div><div class="row"><span class="lb">Duration</span><span class="vl">38s</span></div><div style="display:flex;gap:6px;margin-top:10px"><button class="btn btn-p">Clone for My Product</button><button class="btn btn-s">Try Different Format</button></div></div></div></div>'}
+function adR(){return '<div class="msg"><div class="av ai"><span class="ms mf" style="font-size:11px;color:#fff">all_inclusive</span></div><div class="bub"><p style="margin-bottom:8px;color:var(--t2)">Scanning competitor ads across Meta, TikTok, and Google (all free public APIs)...</p><div class="gc" style="padding:14px;border-color:rgba(194,24,91,.2)"><div style="font-size:13px;font-weight:700;margin-bottom:10px">Ad Scan Results</div><div class="row"><span class="lb">Platforms Scanned</span><span class="vl">Meta &middot; TikTok &middot; Google</span></div><div class="row"><span class="lb">Active Ads Found</span><span class="vl" style="color:var(--ac)">23</span></div><div class="row"><span class="lb">Est. Monthly Spend</span><span class="vl">$15K - $30K</span></div><div class="row"><span class="lb">Gap Found</span><span class="vl" style="color:var(--gn)">No rage-bait hooks used</span></div><div style="display:flex;gap:6px;margin-top:10px"><button class="btn btn-p" onclick="go(\'ads\')">View Full Report</button><button class="btn btn-s">Generate Counter-Campaign</button></div></div></div></div>'}
+function fmtR(t){var f=t.toLowerCase().indexOf('hormozi')>=0?'The Hormozi':t.toLowerCase().indexOf('beast')>=0?'The Beast':'The Gary';return '<div class="msg"><div class="av ai"><span class="ms mf" style="font-size:11px;color:#fff">all_inclusive</span></div><div class="bub"><div class="gc" style="padding:14px"><div style="font-size:15px;font-weight:800;margin-bottom:4px">'+f+'</div><div style="font-size:11px;color:var(--ac);font-weight:700;margin-bottom:8px">85% viral rate</div><div style="font-size:12px;color:var(--t2);line-height:1.6;margin-bottom:10px">Bold authority hook with CAPS text overlay. Direct energy. High comment rate.</div><div style="font-size:11px;color:var(--t3);margin-bottom:10px">Best: TikTok, YouTube, Reels, X</div><div style="display:flex;gap:6px"><button class="btn btn-p">Generate with '+f+'</button><button class="btn btn-s">Preview Example</button></div></div></div></div>'}
+function tplR(){return '<div class="msg"><div class="av ai"><span class="ms mf" style="font-size:11px;color:#fff">all_inclusive</span></div><div class="bub"><p style="margin-bottom:8px;color:var(--t2)">25+ creator formats available:</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:4px"><div style="padding:6px 8px;background:rgba(194,24,91,.08);border:1px solid rgba(194,24,91,.15);border-radius:6px;font-size:10px"><strong>The Hormozi</strong> 85%</div><div style="padding:6px 8px;background:rgba(230,81,0,.08);border:1px solid rgba(230,81,0,.15);border-radius:6px;font-size:10px"><strong>The Beast</strong> 83%</div><div style="padding:6px 8px;background:rgba(194,24,91,.08);border:1px solid rgba(194,24,91,.15);border-radius:6px;font-size:10px"><strong>The Casper</strong> 82%</div><div style="padding:6px 8px;background:rgba(78,222,163,.08);border:1px solid rgba(78,222,163,.15);border-radius:6px;font-size:10px"><strong>The Zach</strong> 81%</div><div style="padding:6px 8px;background:rgba(230,81,0,.08);border:1px solid rgba(230,81,0,.15);border-radius:6px;font-size:10px"><strong>The Caleb</strong> 80%</div><div style="padding:6px 8px;background:rgba(194,24,91,.08);border:1px solid rgba(194,24,91,.15);border-radius:6px;font-size:10px"><strong>The Gary</strong> 79%</div><div style="padding:6px 8px;background:rgba(96,165,250,.08);border:1px solid rgba(96,165,250,.15);border-radius:6px;font-size:10px"><strong>The Khaby</strong> 79%</div><div style="padding:6px 8px;background:rgba(230,81,0,.08);border:1px solid rgba(230,81,0,.15);border-radius:6px;font-size:10px"><strong>The Fireship</strong> 78%</div></div><p style="margin-top:8px;font-size:11px;color:var(--t3)">Click any format or type its name to generate content.</p></div></div>'}
+function genR(){return '<div class="msg"><div class="av ai"><span class="ms mf" style="font-size:11px;color:#fff">all_inclusive</span></div><div class="bub" style="color:var(--t2);line-height:1.7;font-size:13px"><p>I can help with that. Try:</p><ul style="margin:6px 0 0 16px;font-size:12px"><li>Paste a <strong style="color:var(--tx)">product URL</strong> (any of 50+ stores)</li><li>Paste a <strong style="color:var(--tx)">viral video URL</strong> to clone its style</li><li>Type a <strong style="color:var(--tx)">creator name</strong> ("The Hormozi", "The Beast")</li><li>Say <strong style="color:var(--tx)">"scan competitor ads"</strong> for any brand</li><li>Type <strong style="color:var(--tx)">"formats"</strong> to browse all 25+ styles</li></ul></div></div>'}
+</script>
+</body>
+</html>
